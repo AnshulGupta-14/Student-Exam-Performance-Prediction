@@ -1,4 +1,4 @@
 {
-    "python.defaultInterpreterPath": "myenv/Scripts/python.exe",
+    "python.defaultInterpreterPath": "E:/Data Science/M L/Projects/Project 2/Flask/myenv/Scripts/python.exe",
     "python.terminal.activateEnvironment": true,
 }
