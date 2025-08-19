@@ -33,25 +33,49 @@ class ModelTrainer:
                 test_array[:,-1],
             )
 
-            models = {
-                'Linear Regression': LinearRegression(),
-                'Ridge': Ridge(),
-                'Lasso': Lasso(),
-                'KNN': KNeighborsRegressor(),
-                'Decision Tree': DecisionTreeRegressor(),
-                'Random Forest': RandomForestRegressor(),
-                'AdaBoost': AdaBoostRegressor(),
-                'SVM': SVR(),
-                'CatBoost': CatBoostRegressor(verbose=0),
-                'XGBoost': XGBRegressor()
-            }
+            models = [
+                ('Linear Regression', LinearRegression(), {}),
+                ('Ridge', Ridge(), {}),
+                ('Lasso', Lasso(), {}),
+                ('KNN', KNeighborsRegressor(), {}),
+                ('Decision Tree', DecisionTreeRegressor(),  {
+                    'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                    'splitter':['best','random'],
+                    'max_features':['sqrt','log2'],
+                }),
+                ('Random Forest', RandomForestRegressor(), {
+                    'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                 
+                    'max_features':['sqrt','log2',None],
+                    'n_estimators': [8,16,32,64,128,256]
+                }),
+                ('AdaBoost', AdaBoostRegressor(), {
+                    'learning_rate':[.1,.01,0.5,.001],
+                    'loss':['linear','square','exponential'],
+                    'n_estimators': [8,16,32,64,128,256]
+                }),
+                ('SVM', SVR(), {}),
+                ('CatBoost', CatBoostRegressor(verbose=0), {
+                    'depth': [6,8,10],
+                    'learning_rate': [0.01, 0.05, 0.1],
+                    'iterations': [30, 50, 100]
+                }),
+                ('XGBoost', XGBRegressor(), {
+                    'learning_rate':[.1,.01,.05,.001],
+                    'n_estimators': [8,16,32,64,128,256]
+                }),
+            ]
 
             model_report=evaluate_model(X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models = models)
 
             print(model_report)
             best_model_score = max(sorted(model_report.values()))
             best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]
-            best_model = models[best_model_name]
+            best_model = None
+            for name, model, params in models:
+                if name == best_model_name:
+                    best_model = model
+                    break
 
             if best_model_score < 0.6:
                 raise CustomException("No best model found")
