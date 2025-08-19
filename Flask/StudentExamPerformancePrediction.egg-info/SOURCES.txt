@@ -1,7 +1,0 @@
-setup.py
-StudentExamPerformancePrediction.egg-info/PKG-INFO
-StudentExamPerformancePrediction.egg-info/SOURCES.txt
-StudentExamPerformancePrediction.egg-info/dependency_links.txt
-StudentExamPerformancePrediction.egg-info/requires.txt
-StudentExamPerformancePrediction.egg-info/top_level.txt
-src/__init__.py
