@@ -13,7 +13,7 @@ from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_object, evaluate_model
+from src.utils import save_object, select_best_model
 
 @dataclass
 class ModelTrainerConfig:
@@ -66,18 +66,13 @@ class ModelTrainer:
                 }),
             ]
 
-            model_report=evaluate_model(X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models = models)
-
-            best_model_score = max(sorted(model_report.values()))
-            best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]
-            best_model = None
-            for name, model, params in models:
-                if name == best_model_name:
-                    best_model = model
-                    break
+            best_model, best_model_score, best_model_params =select_best_model(X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models = models)
 
             if best_model_score < 0.6:
                 raise CustomException("No best model found")
+            
+            best_model.set_params(**best_model_params)
+            best_model.fit(X_train, y_train)
             
             logging.info("Best model found for both train and test data")
 

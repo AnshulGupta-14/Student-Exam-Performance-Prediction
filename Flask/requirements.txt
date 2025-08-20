@@ -1,3 +1,4 @@
+setuptools
 numpy
 pandas
 seaborn
@@ -7,4 +8,4 @@ catboost
 xgboost
 dill
 flask
-# -e .
+-e .
