@@ -1,5 +1,5 @@
 "use client";
-import Form from "@/Components/Form.jsx";
+import Form from "@/components/Form.jsx";
 
 function Page() {
   return (

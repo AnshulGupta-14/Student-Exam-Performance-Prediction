@@ -1,6 +1,6 @@
 "use client";
+import DashboardChart from "@/components/DashboardChart";
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
-import DashboardChart from "@/Components/DashboardChart.jsx";
 
 function DashboardPage() {
   const [predictions, setPredictions] = useState([]);
