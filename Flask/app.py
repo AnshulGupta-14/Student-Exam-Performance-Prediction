@@ -35,7 +35,7 @@ def predict_datapoint():
         pred_df = data.get_data_as_data_frame()
         predict_pipeline = PredictPipeline()
         result = predict_pipeline.predict(pred_df)
-        return jsonify(prediction= 0 if result[0] < 0 else result[0])
+        return jsonify(prediction = 0 if result[0] < 0 else result[0])
     else:
         return jsonify({'message': 'Please submit a POST request with prediction data'})
     

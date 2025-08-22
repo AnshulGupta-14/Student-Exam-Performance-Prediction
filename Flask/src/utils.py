@@ -43,10 +43,10 @@ def select_best_model(X_train, y_train, X_test, y_test, models):
                 "score": test_model_score
             })
 
-            report = sorted(report, key=lambda x: x['score'], reverse=True)
-            best_model = report[0]['model']
-            best_model_score = report[0]['score']
-            best_model_params = report[0]['params']
+        report = sorted(report, key=lambda x: x['score'], reverse=True)
+        best_model = report[0]['model']
+        best_model_score = report[0]['score']
+        best_model_params = report[0]['params']
 
         return best_model, best_model_score, best_model_params
     except Exception as e:

@@ -108,13 +108,7 @@ const   DashboardChart = React.memo(function DashboardChart({ data, type = "line
           return (
             <text
               key={index}
-              x={
-                index === chartData.length - 1
-                ? `${100 - 2}%` 
-                : index === 0
-                ? `${2}%`       
-                : `${x}%`
-              }
+              x={`${x}%`}
               y={height + 20}
               textAnchor="middle"
               className="text-xs fill-gray-400"
