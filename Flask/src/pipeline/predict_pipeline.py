@@ -1,15 +1,38 @@
 import sys
+import os
+
 import pandas as pd
 
 from src.exception import CustomException
 from src.logger import logging
 from src.utils import load_object
 
+from huggingface_hub import hf_hub_download
+
+from dotenv import load_dotenv
+load_dotenv()
+
+HF_REPO_ID = os.getenv("HF_MODEL_REPO")
+HF_MODEL_FILENAME = os.getenv("HF_MODEL_FILENAME")
+HF_PREPROCESSOR_FILENAME = os.getenv("HF_PREPROCESSOR_FILENAME")
+HF_REVISION = os.getenv("HF_MODEL_REVISION")
+HF_TOKEN = os.getenv("HF_TOKEN")
+
 class PredictPipeline:
     def predict(self,features):
         try:
-            preprocessor_path = 'artifacts/preprocessor.pkl'
-            model_path = 'artifacts/model.pkl'
+            preprocessor_path = hf_hub_download(
+                repo_id=HF_REPO_ID,
+                filename=HF_PREPROCESSOR_FILENAME,
+                revision=HF_REVISION,
+                token=HF_TOKEN,
+            )
+            model_path = hf_hub_download(
+                repo_id=HF_REPO_ID,
+                filename=HF_MODEL_FILENAME,
+                revision=HF_REVISION,
+                token=HF_TOKEN,
+            )
 
             preprocessor = load_object(file_path=preprocessor_path)
             model = load_object(file_path=model_path)

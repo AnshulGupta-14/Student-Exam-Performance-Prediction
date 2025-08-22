@@ -1,16 +1,18 @@
-import pickle
 import numpy as np
 import pandas as pd
 
+from dotenv import load_dotenv
+load_dotenv()
+
+from src.logger import logging
 from src.pipeline.predict_pipeline import CustomData, PredictPipeline
 
 from flask import Flask, request, render_template, jsonify
 from flask_cors import CORS
 
-from sklearn.preprocessing import StandardScaler
-
 app = Flask(__name__)
 CORS(app)
+app.logger.setLevel(logging.INFO)
 
 @app.route('/')
 def home():
@@ -20,6 +22,7 @@ def home():
 def predict_datapoint():
     if request.method == 'POST':
         form_data = request.get_json()
+        app.logger.info(f"Incoming JSON: {form_data}")
         data = CustomData(
             gender=form_data.get('gender'),
             race_ethnicity=form_data.get('ethnicity'),
