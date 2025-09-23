@@ -126,16 +126,6 @@ export default function PredictionForm() {
         setPrediction(roundedPrediction);
         savePredictionToHistory({ prediction: roundedPrediction });
         setShowModal(true);
-
-        setFormData({
-          Gender: "",
-          Ethnicity: "",
-          ParentalEducation: "",
-          Lunch: "",
-          TestPreparationCourse: "",
-          ReadingScore: "",
-          WritingScore: "",
-        });
       } else {
         setError(
           data.error || `API Error: ${response.status} ${response.statusText}`
@@ -151,6 +141,16 @@ export default function PredictionForm() {
     setShowModal(false);
     setError(null);
     setPrediction(null);
+    
+    setFormData({
+      Gender: "",
+      Ethnicity: "",
+      ParentalEducation: "",
+      Lunch: "",
+      TestPreparationCourse: "",
+      ReadingScore: "",
+      WritingScore: "",
+    });
   };
 
   return (
